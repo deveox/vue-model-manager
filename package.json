@@ -2,7 +2,7 @@
   "name": "vue-model-manager",
   "version": "0.0.1",
   "description": "",
-  "main": "index.ts",
+  "main": "src/index.ts",
   "scripts": {
     "test": "jest"
   },
