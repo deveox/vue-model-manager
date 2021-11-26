@@ -1,6 +1,6 @@
 import { Axios, Method } from "axios";
 import Field from "../field";
-import { empty, notEmpty } from "../field/validators";
+import ValidationError from "../validation/error";
 
 export default abstract class Model {
   abstract baseRoute: string;
@@ -14,29 +14,20 @@ export default abstract class Model {
       if (typeof f === "string") {
         f = new Field(f);
       }
-      this._fields[f._name] = f;
-      Object.defineProperty(this, f._name, {
-        value: data[f._name] || f._default,
-        enumerable: true,
-        writable: f._writable,
-      });
+      this._fields[f.name] = f;
+      f.register(this, data[f.name]);
     });
   }
 
-  validate(): boolean {
+  validate(): ValidationError | null {
     for (const name in this._fields) {
       if (Object.prototype.hasOwnProperty.call(this._fields, name)) {
         const f = this._fields[name];
-        const v = this[f._name];
-        if (f._required) {
-          if (empty(v)) return false;
-        }
-        f._validators.forEach((validator) => {
-          if (!validator(v)) return false;
-        });
+        let err = f.validate(this);
+        if (err) return err;
       }
     }
-    return true;
+    return null;
   }
   // normalizeRequestData(args) {
   //   if (args) return args;

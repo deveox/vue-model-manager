@@ -52,8 +52,8 @@ export default User extends Model {
   fields() {
     return [
       "id", // can be just a string with a field name
-      new Field("name", "John Doe").required(), // or configurable Field instance
-      new Field('email').validators(validEmail)
+      new Field("name", "John Doe"), // or configurable Field instance
+      new Field('email')
     ];
   }
 }

@@ -5,28 +5,27 @@ module.exports = {
 
   themeConfig: {
     logo: "https://vuejs.org/images/logo.png",
-    // navbar: [
-    //   {
-    //     text: "Guide",
-    //     link: "",
-    //   },
-    //   {
-    //     text: "API",
-    //   },
-    //   {
-    //     text: "Changelog",
-    //   },
-    //   // {
-    //   //   text: "GitHub",
-    //   //   link: "https://github.com/deveox/vue-model-manager",
-    //   // },
-    // ],
+    navbar: [
+      {
+        text: "Guide",
+        link: "/guide/",
+      },
+      {
+        text: "API",
+        link: "/api/",
+      },
+      {
+        text: "GitHub",
+        link: "https://github.com/deveox/vue-model-manager",
+      },
+    ],
     sidebar: {
       "/guide/": [
         "/guide/README.md",
         "/guide/getting-started.md",
         "/guide/configuration.md",
         "/guide/model",
+        "/guide/field",
       ],
       "/api/": [{ text: "Model" }, { text: "Field" }, { text: "Validator" }],
     },

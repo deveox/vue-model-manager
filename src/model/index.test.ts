@@ -1,6 +1,5 @@
 import Model from ".";
 import Field from "../field";
-import { validEmail } from "../field/validators";
 
 // validators
 class TestModel extends Model {
@@ -11,11 +10,7 @@ class TestModel extends Model {
   email: string;
 
   fields() {
-    return [
-      "id",
-      new Field("name", "default").required(),
-      new Field("email").validators(validEmail),
-    ];
+    return ["id", new Field("name", "default"), new Field("email")];
   }
 }
 
@@ -34,13 +29,5 @@ describe("class Model", () => {
     // Prevent write of field which wasn't registered
     expect(res).not.toHaveProperty("age");
   });
-  test("validate()", () => {
-    let input = { id: 2, name: "test name 2", email: 13 };
-    res = new TestModel(input);
-    // Field values were set
-    expect(res.id).toBe(input.id);
-    expect(res.name).toBe(input.name);
-    // Prevent write of field which wasn't registered
-    expect(res).not.toHaveProperty("age");
-  });
+  test("validate()", () => {});
 });
