@@ -1,28 +1,28 @@
 import { Validators } from "./validators";
 
-export default class Field<Type> {
+export default class Field {
   // External field name (e.g. in JSON response from server)
   // externalName: string
   // Does this field included in search query
-  inSearch: boolean;
-  byDefault: Type | undefined;
-  value: Type | undefined;
-  validators: Validators;
-  constructor(
-    byDefault: Type | undefined = undefined,
-    inSearch: boolean = false,
-    validators: Validators = []
-  ) {
-    console.log("create field with value", byDefault);
-    this.inSearch = inSearch;
-    this.byDefault = byDefault;
-    if (this.byDefault !== undefined) {
-      this.value = this.byDefault;
-    }
-    this.validators = validators;
+  _name: string;
+  _default: any;
+  _validators: Validators = [];
+  _writable: boolean = true;
+  _required: boolean = false;
+  constructor(name: string, defaultValue?: any) {
+    this._name = name;
+    this._default = defaultValue;
   }
-  set(value: Type) {
-    console.log("set field with value", value);
-    this.value = value;
+  required() {
+    this._required = true;
+    return this;
+  }
+  validators(...validators: Validators) {
+    this._validators = validators;
+    return this;
+  }
+  readonly() {
+    this._writable = false;
+    return this;
   }
 }

@@ -1,33 +1,46 @@
 import Model from ".";
 import Field from "../field";
+import { validEmail } from "../field/validators";
 
+// validators
 class TestModel extends Model {
   baseRoute = "/test";
 
-  id = new Field<number>(1);
-  name = new Field<string>("test name");
+  id: number;
+  name: string;
+  email: string;
 
-  constructor(data?: object) {
-    super();
-    return this.set(data);
+  fields() {
+    return [
+      "id",
+      new Field("name", "default").required(),
+      new Field("email").validators(validEmail),
+    ];
   }
 }
 
 describe("class Model", () => {
-  test("constructor works", () => {
-    let input = { id: 2, name: "test name 2" };
-    let m = new TestModel(input);
-    for (const k in m) {
-      if (Object.prototype.hasOwnProperty.call(m, k)) {
-        const element = m[k];
-        console.log(element);
-      }
-    }
-    console.log("get m.id:");
-    console.log(m.id);
-    console.log("get m.id.value:");
-    console.log(m.id.value);
-    // expect(m.id.value).toBe(input.id);
-    // expect(m.name.value).toBe(input.name);
+  test("constructor()", () => {
+    let res = new TestModel();
+    // Default values were set
+    expect(res.id).toBe(undefined);
+    expect(res.name).toBe("default");
+
+    let input = { id: 2, name: "test name 2", age: 13 };
+    res = new TestModel(input);
+    // Field values were set
+    expect(res.id).toBe(input.id);
+    expect(res.name).toBe(input.name);
+    // Prevent write of field which wasn't registered
+    expect(res).not.toHaveProperty("age");
+  });
+  test("validate()", () => {
+    let input = { id: 2, name: "test name 2", email: 13 };
+    res = new TestModel(input);
+    // Field values were set
+    expect(res.id).toBe(input.id);
+    expect(res.name).toBe(input.name);
+    // Prevent write of field which wasn't registered
+    expect(res).not.toHaveProperty("age");
   });
 });

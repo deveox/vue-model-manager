@@ -1,15 +1,22 @@
 export type Validator = (value?: any, ...args: any[]) => boolean;
 export type Validators = Validator[];
 
-export function empty(v: any): boolean {
-  if (typeof v === "string") {
-    return v === "";
+export function notEmpty(name: string, v: any): Error | null {
+  if (v === undefined) return new Error(`field ${name} is empty (undefined)`);
+  if (v === null) return new Error(`field ${name} is empty (null)`);
+  switch (typeof v) {
+    case "string":
+      if (v === "") return new Error(`field ${name} is empty ("")`);
+      return null;
+    case "number":
+      if (v === NaN) return new Error(`field ${name} is empty (NaN)`);
+      return null;
+    case "object":
+      if (Object.keys(v).length === 0)
+        return new Error(`field ${name} is empty ({} || [])`);
+    default:
+      return null;
   }
-  return v === undefined || v === null;
-}
-
-export function notEmpty(v: any): boolean {
-  return !empty(v);
 }
 
 export function inRange(v: number, min: number, max: number): boolean {
