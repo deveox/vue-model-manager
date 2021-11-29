@@ -1,18 +1,6 @@
 import Model from ".";
 import Field from "../field";
-
-// validators
-class TestModel extends Model {
-  baseRoute = "/test";
-
-  id: number;
-  name: string;
-  email: string;
-
-  fields() {
-    return ["id", new Field("name", "default"), new Field("email")];
-  }
-}
+import { TestModel } from "../test-data";
 
 describe("class Model", () => {
   test("constructor()", () => {
@@ -30,4 +18,8 @@ describe("class Model", () => {
     expect(res).not.toHaveProperty("age");
   });
   test("validate()", () => {});
+  test("get _name()", () => {
+    let res = new TestModel();
+    expect(res._name).toBe("TestModel");
+  });
 });

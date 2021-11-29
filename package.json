@@ -30,6 +30,8 @@
   "peerDependencies": {
     "axios": ">= 0.21",
     "validator": ">= 10.11",
-    "lodash": ">= 4.17"
+    "lodash": ">= 4.17",
+    "vuex": ">= 4.0.0",
+    "vue": ">= 3.0.0"
   }
 }

@@ -26,6 +26,7 @@ module.exports = {
         "/guide/configuration.md",
         "/guide/model",
         "/guide/field",
+        "/guide/validation",
       ],
       "/api/": [{ text: "Model" }, { text: "Field" }, { text: "Validator" }],
     },

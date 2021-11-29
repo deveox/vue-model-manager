@@ -31,6 +31,9 @@ export default class Field {
   }
 
   register(target: object, input: any) {
+    if (this.name in target) {
+      Reflect.deleteProperty(target, this.name);
+    }
     let value = input || this.#default;
     if (this.#fields.length) {
       value = {};
