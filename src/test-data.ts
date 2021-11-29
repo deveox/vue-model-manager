@@ -4,11 +4,10 @@ import Model from "./model";
 export class TestModel extends Model {
   baseRoute = "/test";
 
-  id: number;
-  name: string;
-  email: string;
+  name!: string;
+  email!: string;
 
   fields() {
-    return ["id", new Field("name", "default"), new Field("email")];
+    return [new Field("name", "default"), new Field("email")];
   }
 }

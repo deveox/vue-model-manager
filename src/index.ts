@@ -26,6 +26,7 @@ export default class Manager {
       this.#definitions.set(m.name, m);
     });
     if (app) {
+      app.config.globalProperties.$mm = this;
       app.config.globalProperties[`$${Manager.config.key}`] = this;
     }
   }

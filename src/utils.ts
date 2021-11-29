@@ -1,8 +1,8 @@
 const utils = {
-  deepMerge<T>(target: T, ...sources: T[]) {
+  deepMerge<T>(target: T, ...sources: T[]): T {
     let source = sources[0];
     if (sources.length > 1) {
-      source = this.deepMerge(sources.shift(), ...sources);
+      source = this.deepMerge<T>(sources.shift(), ...sources);
     }
     let result = { ...target };
     for (const k in source) {
